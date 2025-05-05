@@ -55,3 +55,8 @@
     margin-top: 1.5rem;
   }
   
+  .done {
+    text-decoration: line-through;
+    color: gray;
+  }
+  
