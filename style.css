@@ -151,3 +151,28 @@ body.dark .filterBtn {
 body.dark .filterBtn:hover {
   background-color: #444;
 }
+
+.dark-toggle {
+  margin: 1rem auto;
+  display: block;
+  padding: 0.5rem 1rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dark-toggle:hover {
+  background-color: #e0e0e0;
+}
+
+body.dark .dark-toggle {
+  background-color: #444;
+  color: white;
+  border-color: #777;
+}
+
+body.dark .dark-toggle:hover {
+  background-color: #555;
+}
+
