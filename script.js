@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const taskInput = document.getElementById("taskInput");
   const addTaskBtn = document.getElementById("addTaskBtn");
   const taskList = document.getElementById("taskList");
+  const darkToggleBtn = document.getElementById("toggleDarkMode");
 
   let tasks = [];
 
@@ -18,15 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderTasks() {
-    const taskList = document.getElementById("taskList");
     taskList.innerHTML = "";
-  
     const filter = document.querySelector(".filterBtn.active")?.dataset.filter || "all";
     let filtered = [...tasks];
-  
+
     if (filter === "active") filtered = tasks.filter(t => !t.completed);
     else if (filter === "completed") filtered = tasks.filter(t => t.completed);
-  
+
     filtered.forEach((task, index) => {
       const li = document.createElement("li");
       li.innerHTML = `
@@ -36,32 +35,18 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       taskList.appendChild(li);
     });
-  
-    updateCounter();
 
-    document.querySelectorAll(".filterBtn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".filterBtn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        renderTasks();
-      });
-    });
-    
+    updateCounter();
   }
-  
 
   function updateCounter() {
     const activeCount = tasks.filter(t => !t.completed).length;
     const text = activeCount === 1 ? "1 tarea pendiente" : `${activeCount} tareas pendientes`;
     document.getElementById("taskCounter").textContent = text;
   }
-  
 
   function addTask(text) {
-    const task = {
-      text: text,
-      completed: false
-    };
+    const task = { text: text, completed: false };
     tasks.push(task);
     saveTasks();
     renderTasks();
@@ -77,9 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   taskInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      addTaskBtn.click();
-    }
+    if (e.key === "Enter") addTaskBtn.click();
   });
 
   taskList.addEventListener("click", (e) => {
@@ -96,13 +79,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  const darkToggleBtn = document.getElementById("toggleDarkMode");
+  
+  document.querySelectorAll(".filterBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filterBtn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderTasks();
+    });
+  });
 
+  // Dark mode toggle
   darkToggleBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
     darkToggleBtn.textContent = document.body.classList.contains("dark") ? "☀️ Modo claro" : "🌙 Modo oscuro";
   });
 
-
-  loadTasks(); // Cargar al inicio
+  loadTasks();
 });

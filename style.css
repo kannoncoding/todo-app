@@ -129,3 +129,25 @@ body.dark .done {
   font-weight: bold;
   text-decoration: underline;
 }
+
+.filterBtn {
+  padding: 0.4rem 0.8rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filterBtn:hover {
+  background-color: #e0e0e0;
+}
+
+body.dark .filterBtn {
+  background-color: #333;
+  border-color: #666;
+  color: white;
+}
+
+body.dark .filterBtn:hover {
+  background-color: #444;
+}
