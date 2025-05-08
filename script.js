@@ -18,8 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderTasks() {
+    const taskList = document.getElementById("taskList");
     taskList.innerHTML = "";
-    tasks.forEach((task, index) => {
+  
+    const filter = document.querySelector(".filterBtn.active")?.dataset.filter || "all";
+    let filtered = [...tasks];
+  
+    if (filter === "active") filtered = tasks.filter(t => !t.completed);
+    else if (filter === "completed") filtered = tasks.filter(t => t.completed);
+  
+    filtered.forEach((task, index) => {
       const li = document.createElement("li");
       li.innerHTML = `
         <span class="${task.completed ? 'done' : ''}">${task.text}</span>
@@ -28,7 +36,26 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       taskList.appendChild(li);
     });
+  
+    updateCounter();
+
+    document.querySelectorAll(".filterBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filterBtn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderTasks();
+      });
+    });
+    
   }
+  
+
+  function updateCounter() {
+    const activeCount = tasks.filter(t => !t.completed).length;
+    const text = activeCount === 1 ? "1 tarea pendiente" : `${activeCount} tareas pendientes`;
+    document.getElementById("taskCounter").textContent = text;
+  }
+  
 
   function addTask(text) {
     const task = {
@@ -68,6 +95,14 @@ document.addEventListener("DOMContentLoaded", () => {
       renderTasks();
     }
   });
+
+  const darkToggleBtn = document.getElementById("toggleDarkMode");
+
+  darkToggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    darkToggleBtn.textContent = document.body.classList.contains("dark") ? "☀️ Modo claro" : "🌙 Modo oscuro";
+  });
+
 
   loadTasks(); // Cargar al inicio
 });

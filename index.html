@@ -15,11 +15,18 @@
       <button id="addTaskBtn">Agregar</button>
     </div>
 
+    <div id="filters" style="padding: 0 1rem; display: flex; gap: 1rem;">
+      <button class="filterBtn" data-filter="all">Todas</button>
+      <button class="filterBtn" data-filter="active">Pendientes</button>
+      <button class="filterBtn" data-filter="completed">Completadas</button>
+    </div>    
+
     <ul id="taskList">
-      <!-- Las tareas aparecerán aquí -->
+      <p id="taskCounter" style="text-align: right; margin: 1rem;">0 tareas pendientes</p>
     </ul>
   </div>
 
   <script src="script.js"></script>
+  <button id="toggleDarkMode" style="margin: 1rem auto; display: block;">🌙 Modo oscuro</button>
 </body>
 </html>
